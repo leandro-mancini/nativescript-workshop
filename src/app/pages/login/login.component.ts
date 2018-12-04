@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Page } from 'tns-core-modules/ui/page/page';
 import { Router } from '@angular/router';
 
-import { UserViewModel } from '~/app/core/models/user-view-model';
-import { ExemploService } from '~/app/core/services/exemplo.service';
+import { AutenticarUsuarioViewModel } from '~/app/core/models/autenticar-usuario-view-model';
+import { AuthorizationService } from '~/app/core/services/authorization.service';
 
 @Component({
   selector: 'ns-login',
@@ -13,29 +13,28 @@ import { ExemploService } from '~/app/core/services/exemplo.service';
 })
 export class LoginComponent implements OnInit {
 
-  user: UserViewModel;
+  user: AutenticarUsuarioViewModel;
 
   constructor(
     private _page: Page,
     private _router: Router,
-    private _exemploService: ExemploService
+    private _authorizationService: AuthorizationService
   ) { 
     this._page.actionBarHidden = true;
-    this.user = new UserViewModel();
+    this.user = new AutenticarUsuarioViewModel();
   }
 
   ngOnInit() {
   }
 
   login() {
-    console.log('Login()');
-    console.log(this.user);
-
-    this._exemploService.obterLista().subscribe((resp: any) => {
+    this._authorizationService.autenticar(this.user).subscribe((resp: any) => {
       console.log(resp);
 
       if (resp.success) {
         this._router.navigate(['/Almoxarifado']);
+      } else {
+        alert(resp.message);
       }
     });
   }
