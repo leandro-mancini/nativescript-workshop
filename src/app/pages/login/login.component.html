@@ -1,0 +1,13 @@
+<DockLayout stretchLastChild="true" class="page">
+    <Button (tap)="login()" dock="bottom" text="Entrar" class="px-btn"></Button>
+
+    <StackLayout>
+        <Image src="res://praxio_invent" class="px-image"></Image>
+
+        <StackLayout>
+            <TextField [(ngModel)]="user.webservice" hint="Webservice" keyboardType="url" class="px-input"></TextField>
+            <TextField [(ngModel)]="user.login" hint="Login" class="px-input"></TextField>
+            <TextField [(ngModel)]="user.senha" hint="Senha" secure="true" class="px-input"></TextField>
+        </StackLayout>
+    </StackLayout>
+</DockLayout>
