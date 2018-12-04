@@ -1,5 +1,6 @@
 <DockLayout stretchLastChild="true" class="page">
-    <Button (tap)="login()" dock="bottom" text="Entrar" class="px-btn"></Button>
+    <Button *ngIf="!loading" (tap)="login()" dock="bottom" text="Entrar" class="px-btn"></Button>
+    <ActivityIndicator *ngIf="loading" dock="bottom" busy="true" width="50" height="50"></ActivityIndicator>
 
     <StackLayout>
         <Image src="res://praxio_invent" class="px-image"></Image>

@@ -14,6 +14,7 @@ import { AuthorizationService } from '~/app/core/services/authorization.service'
 export class LoginComponent implements OnInit {
 
   user: AutenticarUsuarioViewModel;
+  loading = false;
 
   constructor(
     private _page: Page,
@@ -28,15 +29,23 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    this._authorizationService.autenticar(this.user).subscribe((resp: any) => {
-      console.log(resp);
-
-      if (resp.success) {
-        this._router.navigate(['/Almoxarifado']);
-      } else {
-        alert(resp.message);
-      }
-    });
+    if (this.user.usuario && this.user.senha) {
+      this.loading = true;
+      
+      this._authorizationService.autenticar(this.user).subscribe((resp: any) => {
+        console.log(resp);
+  
+        if (resp.success) {
+          this._router.navigate(['/Almoxarifado']);
+        } else {
+          alert(resp.message);
+        }
+  
+        this.loading = false;
+      });
+    } else {
+      alert('Preencha todos os campos.');
+    }
   }
 
 }
